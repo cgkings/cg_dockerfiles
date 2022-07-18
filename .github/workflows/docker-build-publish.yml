@@ -33,9 +33,9 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-    - name: Get current date
-      id: date
-      run: echo "::set-output name=today::$(date +'%Y-%m-%d')"
+    # - name: Get current date
+    #   id: date
+    #   run: echo "::set-output name=today::$(date +'%Y-%m-%d')"
     # - name: Marker version and time
     #   id: getVersion
     #   run: |
@@ -49,4 +49,5 @@ jobs:
       with:
         file: Dockerfile
         push: true
-        tags: ${{ secrets.DOCKERHUB_USERNAME }}/qbittorrent:${{ steps.date.outputs.today }}
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/qbittorrent:latest
+    #   tags: ${{ secrets.DOCKERHUB_USERNAME }}/qbittorrent:${{ steps.date.outputs.today }}

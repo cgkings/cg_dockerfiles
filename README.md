@@ -3,14 +3,14 @@ qBittorrent是一个跨平台的自由BitTorrent客户端，其图形用户界�
 
 ## 版本说明
 
-* 基于Debian 10 x64镜像制作
-* qBittorrent版本为`v4.1.5`
+* 基于debian:bookworm-slim镜像制作
+* qBittorrent版本为`v4.4.3.1`
 
 ## 自行构建
 
 ```bash
 #克隆此项目
-git clone https://github.com/helloxz/qbittorrent.git
+git clone https://github.com/cgkings/qbt.git
 #进入项目
 cd qbittorrent
 #构建docker镜像
@@ -29,17 +29,16 @@ docker run -d \
   -p 7881:7881 \
   -p 7881:7881/udp \
   -p 18080:18080 \
-  -v /data/qbittorrent/config:/etc/qBittorrent \
-  -v /data/qbittorrent/downloads:/downloads \
+  -v /home/qbt/config:/etc/qBittorrent \
+  -v /home/qbt/downloads:/downloads \
   --restart unless-stopped \
-  helloz/qbittorrent
+  cgkings/qbittorrent:latest
 ```
 
 * `7881`：用于传入连接的端口，TCP/UDP都需要映射，且主机端口和容器端口必须一致，否则无法下载和上传
 * `18080`：qBittorrentWEBUI访问端口，主机端口和容器端口必须一致，否则无法打开WEB界面
-* `/data/qbittorrent/config`：qbittorrent配置文件存储目录，可自行修改
-* `/data/qbittorrent/downloads`：下载目录，可自行修改
-
+* `/home/qbt/config`：qbittorrent配置文件存储目录，可自行修改
+* `/home/qbt/downloads`：下载目录，可自行修改
 
 
 ## 使用说明
@@ -53,7 +52,7 @@ docker run -d \
 
 
 
-## 容器目录说明
+## 容器内目录说明
 
 * 容器内配置文件位于`/etc/qBittorrent`
 * 下载目录位于`/downloads`
@@ -62,7 +61,4 @@ docker run -d \
 
 ## 联系我
 
-* Blog：https://www.xiaoz.me/
-* QQ：337003006
-* QQ群：147687134
-
+* E-mail：cgkigns@gmail.com
