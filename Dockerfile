@@ -1,5 +1,5 @@
 #基于哪个镜像制作
-FROM debian:10-slim
+FROM debian:bookworm-slim
 #设置时区
 ENV TZ=Asia/Shanghai
 #工作目录
