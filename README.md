@@ -21,7 +21,7 @@ docker build -t qbittorrent:latest .
 
 ## 运行
 
-不想自行构建的，可通过xiaoz构建好的镜像直接运行：
+不想自行构建的，可通过已构建好的镜像直接运行：
 
 ```bash
 docker run -d \
@@ -31,6 +31,9 @@ docker run -d \
   -p 18080:18080 \
   -v /home/qbt/config:/etc/qBittorrent \
   -v /home/qbt/downloads:/downloads \
+  -v /usr/bin/fclone:/usr/bin/fclone \
+  -v /root/.config/rclone/rclone.conf:/root/.config/rclone/rclone.conf \
+  -v /home/vps_sa/ajkins_sa:/home/vps_sa/ajkins_sa \
   --restart unless-stopped \
   cgkings/qbittorrent:latest
 ```
@@ -39,7 +42,9 @@ docker run -d \
 * `18080`：qBittorrentWEBUI访问端口，主机端口和容器端口必须一致，否则无法打开WEB界面
 * `/home/qbt/config`：qbittorrent配置文件存储目录，可自行修改
 * `/home/qbt/downloads`：下载目录，可自行修改
-
+* `/usr/bin/fclone`：fclone或rclone二进制文件所在目录，可通过`command -v fclone`获取
+* `/root/.config/rclone/rclone.conf`：rclone配置目录，你没有改过配置路径，一般也不用改
+* `/home/vps_sa/ajkins_sa`：fclone配置里的SA所在目录
 
 ## 使用说明
 

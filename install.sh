@@ -16,4 +16,3 @@ mkdir -p /downloads
 curl -kLo /root/GeoLite2-Country.mmdb https://github.com/PrxyHunter/GeoLite2/releases/latest/download/GeoLite2-Country.mmdb
 
 chmod +x /usr/sbin/run.sh
-
