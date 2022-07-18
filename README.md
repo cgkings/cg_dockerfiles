@@ -26,9 +26,9 @@ docker build -t qbittorrent:latest .
 ```bash
 docker run -d \
   --name=qbittorrent \
-  -p 7881:7881 \
-  -p 7881:7881/udp \
-  -p 18080:18080 \
+  -p 51414:51414 \
+  -p 51414:51414/udp \
+  -p 8077:8077 \
   -v /home/qbt/config:/etc/qBittorrent \
   -v /home/qbt/downloads:/downloads \
   -v /usr/bin/fclone:/usr/bin/fclone \

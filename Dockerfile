@@ -16,7 +16,7 @@ VOLUME /data
 VOLUME /etc/qBittorrent
 VOLUME /downloads
 #暴露端口
-EXPOSE 18080
-EXPOSE 7881
+EXPOSE 8077
+EXPOSE 51414
 #运行
 CMD ["/usr/sbin/run.sh"]
