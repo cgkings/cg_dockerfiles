@@ -1,8 +1,8 @@
-name: 更新介绍：qbittorrent
+name: 更新介绍:qbittorrent
 on:
   push:
     branches:
-      - master
+      - main
     paths:
       - qbittorrent/readme.md
 
@@ -11,12 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     name: 更新介绍:qbittorrent
     steps:
-    - 
-      name: Checkout
+    - name: Checkout
       uses: actions/checkout@v2
 
-    - 
-      name: Update DockerHub Readme
+    - name: Update DockerHub Readme
       uses: christian-korneck/update-container-description-action@v1
       env:
         DOCKER_USER: ${{ secrets.DOCKERHUB_USERNAME }}
