@@ -1,7 +1,6 @@
 #!/bin/bash
 #/etc/qBittorrent/config/qBittorrent.conf
 
-
 if [ -f "/etc/qBittorrent/config/qBittorrent.conf" ];then
 	echo -e "y" | qbittorrent-nox --profile=/etc
 else
