@@ -1,47 +1,40 @@
-# Copyright (c) 2020-2021 cgkings
-#
-# This is free software, licensed under the MIT License.
-# See /LICENSE for more information.
-
-name: Docker Images Publish
+name: 构建镜像:qbittorrent
 
 on:
   workflow_dispatch:
-  repository_dispatch:
-  push:
-    branches:
-      - 'main'
-
-env:
-  ## 镜像名，也是git仓库中的文件夹名
-  IMAGE_NAME: qbittorrent
-  ## Dockerfile文件名称，在这里修改
-  DOCKERFILE_NAME: Dockerfile
 
 jobs:
-  publish:
+  build:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
-
+    name: 构建镜像:qbittorrent
+    env:
+      IMAGE_NAME: qbittorrent
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@master
 
-    - name: Set up QEMU
-      uses: docker/setup-qemu-action@v1
+      - name: Set Up QEMU
+        uses: docker/setup-qemu-action@v2
 
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v1
+      - name: Set Up Buildx
+        uses: docker/setup-buildx-action@v2
 
-    - name: Login to DockerHub
-      uses: docker/login-action@v1 
-      with:
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-    - name: Get current date
-      id: date
-      run: echo "::set-output name=today::$(date +'%Y-%m-%d')"
+      - name: Set Up Cache
+        uses: actions/cache@v2
+        id: buildx-cache
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx
+
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=today::$(date +'%Y-%m-%d')"
     # - name: Marker version and time
     #   id: getVersion
     #   run: |
@@ -50,10 +43,12 @@ jobs:
     #     cat rootfs/Aria2-Pro
     #     echo "::set-output name=time::$(date +"%Y%m%d%H%M")"
 
-    - name: Build and push
-      uses: docker/build-push-action@v2
-      with:
-        file: ${{ env.IMAGE_NAME }}/${{ env.DOCKERFILE_NAME }}
-        push: true
-        tags: ${{ secrets.DOCKERHUB_USERNAME }}/qbittorrent:${{ steps.date.outputs.today }}
+      - name: Buildx
+        uses: docker/build-push-action@v3
+        with:
+          context: ${{ env.IMAGE_NAME }}
+          file: ${{ env.IMAGE_NAME }}/Dockerfile
+          platforms: linux/amd64
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:${{ steps.date.outputs.today }}
     #   tags: ${{ secrets.DOCKERHUB_USERNAME }}/qbittorrent:${{ steps.date.outputs.today }}
