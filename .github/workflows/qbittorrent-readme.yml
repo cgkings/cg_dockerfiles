@@ -1,7 +1,10 @@
 name: 更新介绍:qbittorrent
-
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - master
+    paths:
+      - qbittorrent/readme.md
 
 jobs:
   dockerHubDescription:
