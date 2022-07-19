@@ -9,7 +9,7 @@ on:
 jobs:
   dockerHubDescription:
     runs-on: ubuntu-latest
-    name: 更新介绍：qbittorrent
+    name: 更新介绍:qbittorrent
     steps:
     - 
       name: Checkout

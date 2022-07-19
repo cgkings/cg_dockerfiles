@@ -15,4 +15,3 @@ else
 	echo -e "y" | qbittorrent-nox --profile=/etc
 	tail -100f /etc/qBittorrent/data/logs/qbittorrent.log
 fi
-

@@ -10,14 +10,12 @@ qBittorrent是一个跨平台的自由BitTorrent客户端，其图形用户界�
 
 ```bash
 #克隆此项目
-git clone https://github.com/cgkings/qbt.git
+git clone https://github.com/cgkings/cg_dockerfiles/tree/main/qbittorrent
 #进入项目
 cd qbittorrent
 #构建docker镜像
 docker build -t qbittorrent:latest .
 ```
-
-
 
 ## 运行
 
@@ -38,8 +36,8 @@ docker run -d \
   cgkings/qbittorrent:latest
 ```
 
-* `7881`：用于传入连接的端口，TCP/UDP都需要映射，且主机端口和容器端口必须一致，否则无法下载和上传
-* `18080`：qBittorrentWEBUI访问端口，主机端口和容器端口必须一致，否则无法打开WEB界面
+* `51414`：用于传入连接的端口，TCP/UDP都需要映射，且主机端口和容器端口必须一致，否则无法下载和上传
+* `8077`：qBittorrentWEBUI访问端口，主机端口和容器端口必须一致，否则无法打开WEB界面
 * `/home/qbt/config`：qbittorrent配置文件存储目录，可自行修改
 * `/home/qbt/downloads`：下载目录，可自行修改
 * `/usr/bin/fclone`：fclone或rclone二进制文件所在目录，可通过`command -v fclone`获取
@@ -48,21 +46,17 @@ docker run -d \
 
 ## 使用说明
 
-运行成功后可通过`http://IP:18080`进行访问，
+运行成功后可通过`http://IP:8077`进行访问，
 
 * 初始用户名：`admin`
 * 密码：`adminadmin`
 
 登录后请务必修改。
 
-
-
 ## 容器内目录说明
 
 * 容器内配置文件位于`/etc/qBittorrent`
 * 下载目录位于`/downloads`
-
-
 
 ## 联系我
 

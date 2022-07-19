@@ -1,7 +1,5 @@
 #!/bin/bash
 #####	Debian安装qbittorrent
-#####	author:xiaoz<xiaoz93@outlook.com>
-#####	update:2021/03/19
 
 apt-get update
 apt install -y qbittorrent-nox curl
