@@ -5,9 +5,9 @@ ENV TZ=Asia/Shanghai
 #工作目录
 WORKDIR /root
 #复制安装脚本
-COPY ./install.sh /root
+COPY install.sh /root
 #复制启动脚本
-COPY ./run.sh /usr/sbin
+COPY run.sh /usr/sbin
 #执行安装脚本
 RUN bash install.sh
 #暴露站点文件夹
