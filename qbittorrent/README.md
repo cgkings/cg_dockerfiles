@@ -6,7 +6,6 @@ qBittorrent是一个跨平台的自由BitTorrent客户端，其图形用户界�
 * 基于debian:bookworm-slim镜像制作
 * qBittorrent版本为`v4.4.3.1`
 * 包含下载完成自动上传脚本
-* 陆续新增
 
 ## 自行构建
 
