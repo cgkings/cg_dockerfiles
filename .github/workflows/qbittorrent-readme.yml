@@ -2,7 +2,7 @@ name: 更新介绍:qbittorrent
 on:
   push:
     branches:
-      - master
+      - main
     paths:
       - qbittorrent/readme.md
 
@@ -22,4 +22,4 @@ jobs:
       with:
         destination_container_repo: cgkings/qbittorrent
         provider: dockerhub
-        readme_file: ./qbittorrent/readme.md
+        readme_file: /qbittorrent/readme.md
