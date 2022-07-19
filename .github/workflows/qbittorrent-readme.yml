@@ -20,6 +20,6 @@ jobs:
         DOCKER_USER: ${{ secrets.DOCKERHUB_USERNAME }}
         DOCKER_PASS: ${{ secrets.DOCKERHUB_TOKEN }}
       with:
-        destination_container_repo: ${{ secrets.DOCKERHUB_USERNAME }}/qbittorrent
+        destination_container_repo: cgkings/qbittorrent
         provider: dockerhub
         readme_file: ./qbittorrent/readme.md
