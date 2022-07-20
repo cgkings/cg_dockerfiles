@@ -84,7 +84,7 @@ jobs:
         name: Prepare
         id: prep
         run: |
-          DOCKERHUB_REPOSITORY="${{ secrets.DOCKER_USERNAME }}/${IMAGE_NAME}"
+          DOCKERHUB_REPOSITORY="${{ secrets.DOCKERHUB_USERNAME }}/${IMAGE_NAME}"
           FULL_VERSION="${{ needs.base.outputs.full_version }}"
           ARCH="${{ matrix.architecture }}"
           TAGS="${DOCKERHUB_REPOSITORY}:${FULL_VERSION}-$(echo ${ARCH} | perl -pe '{s|linux/||g; s|/|-|g}')"
@@ -105,8 +105,8 @@ jobs:
         name: Login DockerHub
         uses: docker/login-action@v2
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - 
         name: Set Up Cache
@@ -143,15 +143,15 @@ jobs:
         name: Login DockerHub
         uses: docker/login-action@v2
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
       
       - 
         name: Create And Push Manifest
         env:
           DOCKER_CLI_EXPERIMENTAL: enabled
         run: |
-          DOCKERHUB_REPOSITORY="${{ secrets.DOCKER_USERNAME }}/${IMAGE_NAME}"
+          DOCKERHUB_REPOSITORY="${{ secrets.DOCKERHUB_USERNAME }}/${IMAGE_NAME}"
           FULL_VERSION="${{ needs.base.outputs.full_version }}"
           MATRIX='${{ needs.base.outputs.matrix }}'
           ALL_ARCH=( $(echo ${MATRIX} | jq -r .architecture[] | perl -pe '{s|linux/||g; s|/|-|g}') )
@@ -181,10 +181,10 @@ jobs:
         if: endsWith(needs.base.outputs.multitags, 'latest')
         uses: christian-korneck/update-container-description-action@v1
         env:
-          DOCKER_USER: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASS: ${{ secrets.DOCKER_PASSWORD }}
+          DOCKER_USER: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKER_PASS: ${{ secrets.DOCKERHUB_TOKEN }}
         with:
-          destination_container_repo: ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}
+          destination_container_repo: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}
           provider: dockerhub
           readme_file: ./${{ env.IMAGE_NAME }}/readme.md
           short_description: ${{ env.IMAGE_NAME }} ${{ needs.base.outputs.full_version }}：下载完成通知,自动分类,IYUU辅助,tracker错误标记,批量修改tracker,设备上线自动限速,多时段限速等等
@@ -198,8 +198,8 @@ jobs:
         ## 参考https://github.com/xaynetwork/xaynet/blob/master/.github/workflows/dockerhub-cleanup.yml
         name: Setup Hub-tool
         env:
-          DHUSER: ${{ secrets.DOCKER_USERNAME }}
-          DHTOKEN: ${{ secrets.DOCKER_PASSWORD }}
+          DHUSER: ${{ secrets.DOCKERHUB_USERNAME }}
+          DHTOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
           DEBIAN_FRONTEND: noninteractive
         run: |
           echo "Install hub-tool ..."
@@ -221,7 +221,7 @@ jobs:
       -
         name: Delete Unwanted Tags
         run: |
-          DOCKERHUB_REPOSITORY="${{ secrets.DOCKER_USERNAME }}/${IMAGE_NAME}"
+          DOCKERHUB_REPOSITORY="${{ secrets.DOCKERHUB_USERNAME }}/${IMAGE_NAME}"
           FULL_VERSION="${{ needs.base.outputs.full_version }}"
           MATRIX='${{ needs.base.outputs.matrix }}'
           ALL_ARCH=( $(echo ${MATRIX} | jq -r .architecture[] | perl -pe '{s|linux/||g; s|/|-|g}') )
@@ -274,8 +274,8 @@ jobs:
         name: Login DockerHub
         uses: docker/login-action@v2
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - 
         name: Set Up Cache
@@ -294,6 +294,6 @@ jobs:
           platforms: ${{ steps.prep.outputs.platforms }}
           push: true
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ needs.base.outputs.full_version }}-iyuu
-            ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:iyuu
-            ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:latest-iyuu
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:${{ needs.base.outputs.full_version }}-iyuu
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:iyuu
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:latest-iyuu
