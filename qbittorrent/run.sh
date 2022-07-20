@@ -1,6 +1,6 @@
 #!/bin/bash
 #/etc/qBittorrent/config/qBittorrent.conf
-update_tracker(){
+update_tracker() {
   wget -O /tmp/trackers_list.txt "$TL"
   Newtrackers="Bittorrent\TrackersList=$(awk '{if(!NF){next}}1' /tmp/trackers_list.txt | sed ':a;N;s/\n/\\n/g;ta')"
   Oldtrackers="$(grep TrackersList= /config/qBittorrent/config/qBittorrent.conf)"
@@ -27,16 +27,17 @@ if [ -f "/etc/qBittorrent/config/qBittorrent.conf" ]; then
   update_tracker
   echo -e "y" | qbittorrent-nox --webui-port="$WEBUI_PORT" --profile=/etc
 else
-  curl -kLo /etc/qBittorrent/config.tar.gz https://github.com/helloxz/qbittorrent/raw/main/config.tar.gz
+  curl -kLo /etc/qBittorrent/config.tar.gz https://github.com/cgkings/cg_dockerfiles/raw/main/qbittorrent/config.tar.gz
   cd /etc/qBittorrent/ && tar -xvf /etc/qBittorrent/config.tar.gz
   rm -rf /etc/qBittorrent/config.tar.gz
+  curl -kLo /etc/qBittorrent/cg_qbt.sh https://github.com/cgkings/script-store/raw/master/script/cg_qbt.sh
   cat > /data/config/qBittorrent.conf << EOF
 [General]
 ported_to_new_savepath_system=true
 
 [AutoRun]
 enabled=true
-program=cg_qbt.sh \"%N\" \"%F\" \"%C\" \"%Z\" \"%I\" \"%L\"
+program=/etc/qBittorrent/cg_qbt.sh \"%N\" \"%F\" \"%C\" \"%Z\" \"%I\" \"%L\"
 
 [BitTorrent]
 Session\AddExtensionToIncompleteFiles=true
@@ -60,7 +61,7 @@ Bittorrent\TrackersList=
 Connection\Interface=
 Connection\PortRangeMin=${BT_PORT}
 Connection\UseUPnP=false
-Downloads\SavePath=/data/downloads/
+Downloads\SavePath=/downloads/
 General\Locale=zh
 General\UseRandomPort=false
 Queueing\QueueingEnabled=true
