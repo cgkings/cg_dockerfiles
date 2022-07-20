@@ -50,5 +50,8 @@ jobs:
           file: ${{ env.IMAGE_NAME }}/Dockerfile
           platforms: linux/amd64
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:${{ steps.date.outputs.today }}
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:${{ steps.date.outputs.today }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:latest
+            
     #   tags: ${{ secrets.DOCKERHUB_USERNAME }}/qbittorrent:${{ steps.date.outputs.today }}
