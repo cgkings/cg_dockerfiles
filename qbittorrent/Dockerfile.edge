@@ -5,9 +5,9 @@ ENV S6_SERVICES_GRACETIME=30000 \
     S6_SYNC_DISKS=1 \
     QBITTORRENT_HOME=/var/lib/qbittorrent \
     TZ=Asia/Shanghai \
-    PUID="$UID" \
-    PGID="$GID" \
-    WEBUI_PORT=8070 \
+    PUID=1000 \
+    PGID=100 \
+    WEBUI_PORT=8080 \
     BT_PORT=34567 \
     LANG=zh_CN.UTF-8 \
     SHELL=/bin/bash \
@@ -28,5 +28,4 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.bfsu.edu.cn/g' /etc/apk/repositorie
 COPY s6-overlay /
 WORKDIR /data
 VOLUME ["/data"]
-EXPOSE $WEBUI_PORT $BT_PORT $BT_PORT/udp
 ENTRYPOINT ["/init"]
