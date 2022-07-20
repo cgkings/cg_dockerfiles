@@ -6,7 +6,6 @@ ENV TZ=Asia/Shanghai \
     PGID="$GID" \
     WEBUI_PORT=8070 \
     BT_PORT=34567 \
-    LANG=zh_CN.UTF-8 \
     TL=https://githubraw.sleele.workers.dev/XIU2/TrackersListCollection/master/best.txt \
     SHELL=/bin/bash \
     QBITTORRENT_HOME=/etc/qBittorrent
