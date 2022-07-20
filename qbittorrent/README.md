@@ -23,11 +23,14 @@ docker build -t qbittorrent:latest .
 不想自行构建的，可通过已构建好的镜像直接运行：
 
 ```bash
-docker run -d \
-  --name=qbittorrent \
-  -p 51414:51414 \
-  -p 51414:51414/udp \
-  -p 8077:8077 \
+ docker run -d --name=qbittorrent \
+  -e PUID="$UID" \
+  -e PGID="$GID" \
+  -e WEBUI_PORT="8070" \
+  -e BT_PORT="34567" \
+  -p 34567:34567 \
+  -p 34567:34567/udp \
+  -p 8070:8070 \
   -v /home/qbt/config:/etc/qBittorrent \
   -v /home/qbt/downloads:/downloads \
   -v /usr/bin/fclone:/usr/bin/fclone \
@@ -37,8 +40,8 @@ docker run -d \
   cgkings/qbittorrent:latest
 ```
 
-* `51414`：用于传入连接的端口，TCP/UDP都需要映射，且主机端口和容器端口必须一致，否则无法下载和上传
-* `8077`：qBittorrentWEBUI访问端口，主机端口和容器端口必须一致，否则无法打开WEB界面
+* `34567`：用于传入连接的端口，TCP/UDP都需要映射，且主机端口和容器端口必须一致，否则无法下载和上传
+* `8070`：qBittorrentWEBUI访问端口，主机端口和容器端口必须一致，否则无法打开WEB界面
 * `/home/qbt/config`：qbittorrent配置文件存储目录，可自行修改
 * `/home/qbt/downloads`：下载目录，可自行修改
 * `/usr/bin/fclone`：fclone或rclone二进制文件所在目录，可通过`command -v fclone`获取
@@ -47,7 +50,7 @@ docker run -d \
 
 ## 使用说明
 
-运行成功后可通过`http://IP:8077`进行访问，
+运行成功后可通过`http://IP:8070`进行访问，
 
 * 初始用户名：`admin`
 * 密码：`adminadmin`
