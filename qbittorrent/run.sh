@@ -1,9 +1,35 @@
 #!/bin/bash
 #/etc/qBittorrent/config/qBittorrent.conf
+update_tracker(){
+  wget -O /tmp/trackers_list.txt "$TL"
+  Newtrackers="Bittorrent\TrackersList=$(awk '{if(!NF){next}}1' /tmp/trackers_list.txt | sed ':a;N;s/\n/\\n/g;ta')"
+  Oldtrackers="$(grep TrackersList= /config/qBittorrent/config/qBittorrent.conf)"
+  echo "$Newtrackers" >/tmp/Newtrackers.txt
+  if [ -e "/tmp/trackers_list.txt" ]; then
+    if [ "$Newtrackers" == "$Oldtrackers" ]; then
+      echo trackers文件一样,不需要更新。
+    else
+      sed -i '/Bittorrent\\TrackersList=/r /tmp/Newtrackers.txt' /config/qBittorrent/config/qBittorrent.conf
+      sed -i '1,/^Bittorrent\\TrackersList=.*/{//d;}' /config/qBittorrent/config/qBittorrent.conf
+      echo 已更新trackers。
+    fi
+    rm /tmp/trackers_list.txt
+    rm /tmp/Newtrackers.txt
+    curl -kLo /root/GeoLite2-Country.mmdb https://github.com/PrxyHunter/GeoLite2/releases/latest/download/GeoLite2-Country.mmdb
+    mkdir -p /etc/qBittorrent/data/GeoIP
+    mv -f /root/GeoLite2-Country.mmdb /etc/qBittorrent/data/GeoIP/GeoLite2-Country.mmdb
+  else
+    echo 更新文件未正确下载，更新未成功，请检查网络。
+  fi
+}
 
 if [ -f "/etc/qBittorrent/config/qBittorrent.conf" ]; then
-  echo -e "y" | qbittorrent-nox --profile=/etc
+  update_tracker
+  echo -e "y" | qbittorrent-nox --webui-port="$WEBUI_PORT" --profile=/etc
 else
+  curl -kLo /etc/qBittorrent/config.tar.gz https://github.com/helloxz/qbittorrent/raw/main/config.tar.gz
+  cd /etc/qBittorrent/ && tar -xvf /etc/qBittorrent/config.tar.gz
+  rm -rf /etc/qBittorrent/config.tar.gz
   cat > /data/config/qBittorrent.conf << EOF
 [General]
 ported_to_new_savepath_system=true
@@ -30,6 +56,7 @@ AutoDeleteAddedTorrentFile=IfAdded
 Accepted=true
 
 [Preferences]
+Bittorrent\TrackersList=
 Connection\Interface=
 Connection\PortRangeMin=${BT_PORT}
 Connection\UseUPnP=false
@@ -47,11 +74,7 @@ WebUI\Enabled=true
 WebUI\LocalHostAuth=false
 WebUI\Port=${WEBUI_PORT}
 EOF
-  curl -kLo /etc/qBittorrent/config.tar.gz https://github.com/helloxz/qbittorrent/raw/main/config.tar.gz
-  cd /etc/qBittorrent/ && tar -xvf /etc/qBittorrent/config.tar.gz
-  rm -rf /etc/qBittorrent/config.tar.gz
-  mkdir -p /etc/qBittorrent/data/GeoIP
-  mv /root/GeoLite2-Country.mmdb /etc/qBittorrent/data/GeoIP/GeoLite2-Country.mmdb
-  echo -e "y" | qbittorrent-nox --profile=/etc
+  update_tracker
+  echo -e "y" | qbittorrent-nox --webui-port="$WEBUI_PORT" --profile=/etc
   tail -100f /etc/qBittorrent/data/logs/qbittorrent.log
 fi
