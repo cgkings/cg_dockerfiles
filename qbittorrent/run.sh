@@ -3,14 +3,14 @@
 update_tracker() {
   wget -O /tmp/trackers_list.txt "$TL"
   Newtrackers="Bittorrent\TrackersList=$(awk '{if(!NF){next}}1' /tmp/trackers_list.txt | sed ':a;N;s/\n/\\n/g;ta')"
-  Oldtrackers="$(grep TrackersList= /config/qBittorrent/config/qBittorrent.conf)"
+  Oldtrackers="$(grep TrackersList= /etc/qBittorrent/config/qBittorrent.conf)"
   echo "$Newtrackers" >/tmp/Newtrackers.txt
   if [ -e "/tmp/trackers_list.txt" ]; then
     if [ "$Newtrackers" == "$Oldtrackers" ]; then
       echo trackers文件一样,不需要更新。
     else
-      sed -i '/Bittorrent\\TrackersList=/r /tmp/Newtrackers.txt' /config/qBittorrent/config/qBittorrent.conf
-      sed -i '1,/^Bittorrent\\TrackersList=.*/{//d;}' /config/qBittorrent/config/qBittorrent.conf
+      sed -i '/Bittorrent\\TrackersList=/r /tmp/Newtrackers.txt' /etc/qBittorrent/config/qBittorrent.conf
+      sed -i '1,/^Bittorrent\\TrackersList=.*/{//d;}' /etc/qBittorrent/config/qBittorrent.conf
       echo 已更新trackers。
     fi
     rm /tmp/trackers_list.txt
@@ -31,7 +31,7 @@ else
   cd /etc/qBittorrent/ && tar -xvf /etc/qBittorrent/config.tar.gz
   rm -rf /etc/qBittorrent/config.tar.gz
   curl -kLo /etc/qBittorrent/cg_qbt.sh https://github.com/cgkings/script-store/raw/master/script/cg_qbt.sh
-  cat > /data/config/qBittorrent.conf << EOF
+  cat > /etc/qBittorrent/config/qBittorrent.conf << EOF
 [General]
 ported_to_new_savepath_system=true
 
