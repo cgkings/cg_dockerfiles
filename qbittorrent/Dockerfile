@@ -11,17 +11,12 @@ ENV TZ=Asia/Shanghai \
     QBITTORRENT_HOME=/etc/qBittorrent
 #工作目录
 WORKDIR /root
+#复制安装脚本
+COPY ./install.sh /root
 #复制启动脚本
 COPY ./run.sh /usr/sbin
-#运行
-RUN apt install -y curl jq qbittorrent-nox python3 \
-    && rm -rf /var/lib/apt/lists/* \
-    && mkdir -p /etc/qBittorrent \
-    && mkdir -p /etc/qBittorrent/data/GeoIP \
-    && mkdir -p /downloads \
-    && echo "${TZ}" > /etc/timezone \
-    && useradd qbittorrent -u ${PUID} -U -m -d /etc/qBittorrent -s /sbin/nologin \
-    && chmod +x /usr/sbin/run.sh
+#执行安装脚本
+RUN bash install.sh
 #暴露站点文件夹
 VOLUME /data
 #暴露配置文件
