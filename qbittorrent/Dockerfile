@@ -15,16 +15,7 @@ WORKDIR /root
 #复制启动脚本
 COPY ./run.sh /usr/sbin
 #运行
-RUN apk add --no-cache \
-    curl \
-    openssl \
-    qt5-qtbase \
-    shadow \
-    tzdata \
-    jq \
-    bash \
-    qbittorrent-nox \
-    python3 \
+RUN apt install -y curl jq qbittorrent-nox python3 \
     && rm -rf /var/lib/apt/lists/* \
     && mkdir -p ${QBITTORRENT_HOME} \
     && mkdir -p ${QBITTORRENT_HOME}/data/GeoIP \
