@@ -15,9 +15,6 @@ update_tracker() {
     fi
     rm /tmp/trackers_list.txt
     rm /tmp/Newtrackers.txt
-    curl -kLo /root/GeoLite2-Country.mmdb https://github.com/PrxyHunter/GeoLite2/releases/latest/download/GeoLite2-Country.mmdb
-    mkdir -p /etc/qBittorrent/data/GeoIP
-    mv -f /root/GeoLite2-Country.mmdb /etc/qBittorrent/data/GeoIP/GeoLite2-Country.mmdb
   else
     echo 更新文件未正确下载，更新未成功，请检查网络。
   fi
@@ -25,12 +22,14 @@ update_tracker() {
 
 if [ -f "/etc/qBittorrent/config/qBittorrent.conf" ]; then
   update_tracker
-  echo -e "y" | qbittorrent-nox --webui-port="$WEBUI_PORT" --profile=/etc
+  echo -e "y" | qbittorrent-nox -d --webui-port="$WEBUI_PORT" --profile=/etc/qBittorrent/config
 else
   curl -kLo /etc/qBittorrent/config.tar.gz https://github.com/cgkings/cg_dockerfiles/raw/main/qbittorrent/config.tar.gz
   cd /etc/qBittorrent/ && tar -xvf /etc/qBittorrent/config.tar.gz
   rm -rf /etc/qBittorrent/config.tar.gz
   curl -kLo /etc/qBittorrent/cg_qbt.sh https://github.com/cgkings/script-store/raw/master/script/cg_qbt.sh
+  mkdir -p /etc/qBittorrent/data/GeoIP
+  mv -f /root/GeoLite2-Country.mmdb /etc/qBittorrent/data/GeoIP/GeoLite2-Country.mmdb
   cat > /etc/qBittorrent/config/qBittorrent.conf << EOF
 [General]
 ported_to_new_savepath_system=true
@@ -76,6 +75,6 @@ WebUI\LocalHostAuth=false
 WebUI\Port=${WEBUI_PORT}
 EOF
   update_tracker
-  echo -e "y" | qbittorrent-nox --webui-port="$WEBUI_PORT" --profile=/etc
+  echo -e "y" | qbittorrent-nox -d --webui-port="$WEBUI_PORT" --profile=/etc/qBittorrent/config
   tail -100f /etc/qBittorrent/data/logs/qbittorrent.log
 fi
