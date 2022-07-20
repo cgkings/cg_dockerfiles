@@ -1,0 +1,110 @@
+{
+    "98t-c": {
+        "addPaused": null,
+        "affectedFeeds": [
+        ],
+        "assignedCategory": "",
+        "enabled": false,
+        "episodeFilter": "",
+        "ignoreDays": 0,
+        "lastMatch": "",
+        "mustContain": "",
+        "mustNotContain": "",
+        "previouslyMatchedEpisodes": [
+        ],
+        "savePath": "",
+        "smartFilter": false,
+        "torrentContentLayout": null,
+        "useRegex": false
+    },
+    "lemonhd": {
+        "addPaused": null,
+        "affectedFeeds": [
+        ],
+        "assignedCategory": "2.pt-up",
+        "enabled": false,
+        "episodeFilter": "",
+        "ignoreDays": 0,
+        "lastMatch": "",
+        "mustContain": "\\D(10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25|26|27|28|29|30|31|32|33|34|35|36|37|38|39|40|41|42|43|44|45|46|47|48|49|)\\.\\d{2}\\sGB",
+        "mustNotContain": "",
+        "previouslyMatchedEpisodes": [
+        ],
+        "savePath": "",
+        "smartFilter": false,
+        "torrentContentLayout": null,
+        "useRegex": true
+    },
+    "mt": {
+        "addPaused": null,
+        "affectedFeeds": [
+        ],
+        "assignedCategory": "3.pt-mt",
+        "enabled": false,
+        "episodeFilter": "",
+        "ignoreDays": 0,
+        "lastMatch": "",
+        "mustContain": "\\D(10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25|26|27|28|29|30|31|32|33|34|35|36|37|38|39|40|41|42|43|44|45|46|47|48|49|)\\.\\d{2}\\sGB",
+        "mustNotContain": "",
+        "previouslyMatchedEpisodes": [
+        ],
+        "savePath": "",
+        "smartFilter": false,
+        "torrentContentLayout": null,
+        "useRegex": true
+    },
+    "pter": {
+        "addPaused": null,
+        "affectedFeeds": [
+        ],
+        "assignedCategory": "2.pt-up",
+        "enabled": false,
+        "episodeFilter": "",
+        "ignoreDays": 0,
+        "lastMatch": "",
+        "mustContain": "\\D(10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25|26|27|28|29|30|31|32|33|34|35|36|37|38|39|40|41|42|43|44|45|46|47|48|49|)\\.\\d{2}\\sGB",
+        "mustNotContain": "",
+        "previouslyMatchedEpisodes": [
+        ],
+        "savePath": "",
+        "smartFilter": false,
+        "torrentContentLayout": null,
+        "useRegex": true
+    },
+    "ttg": {
+        "addPaused": null,
+        "affectedFeeds": [
+        ],
+        "assignedCategory": "4.pt-ttg",
+        "enabled": false,
+        "episodeFilter": "",
+        "ignoreDays": 0,
+        "lastMatch": "",
+        "mustContain": "(TTG|WiKi|NGB).*\\D(10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25|26|27|28|29|30|31|32|33|34|35|36|37|38|39|40|41|42|43|44|45|46|47|48|49|)\\.\\d{2}\\sGB",
+        "mustNotContain": "",
+        "previouslyMatchedEpisodes": [
+        ],
+        "savePath": "",
+        "smartFilter": false,
+        "torrentContentLayout": null,
+        "useRegex": true
+    },
+    "ttg小货车": {
+        "addPaused": true,
+        "affectedFeeds": [
+        ],
+        "assignedCategory": "4.pt-ttg",
+        "enabled": false,
+        "episodeFilter": "",
+        "ignoreDays": 0,
+        "lastMatch": "",
+        "mustContain": "",
+        "mustNotContain": "",
+        "previouslyMatchedEpisodes": [
+        ],
+        "savePath": "",
+        "smartFilter": false,
+        "torrentContentLayout": null,
+        "useRegex": false
+    }
+}
