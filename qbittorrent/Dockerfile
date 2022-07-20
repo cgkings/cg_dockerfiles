@@ -28,4 +28,5 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.bfsu.edu.cn/g' /etc/apk/repositorie
 COPY s6-overlay /
 WORKDIR /data
 VOLUME ["/data"]
+EXPOSE $WEBUI_PORT $BT_PORT $BT_PORT/udp
 ENTRYPOINT ["/init"]
