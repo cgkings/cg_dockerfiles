@@ -1,7 +1,6 @@
 #!/bin/bash
 echo "${TZ}" > /etc/timezone
-apt update && apt install -y --no-install-recommends curl qbittorrent-nox python3
-rm -rf /var/lib/apt/lists/*
+apt update && apt install -y curl qbittorrent-nox python3 && rm -rf /var/lib/apt/lists/*
 #创建路径
 mkdir -p /etc/qBittorrent/data/GeoIP
 #创建下载目录
