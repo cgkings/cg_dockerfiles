@@ -1,27 +1,6 @@
 #!/bin/bash
 #/etc/qBittorrent/config/qBittorrent.conf
-update_tracker() {
-  wget -O /tmp/trackers_list.txt "$TL"
-  Newtrackers="Bittorrent\TrackersList=$(awk '{if(!NF){next}}1' /tmp/trackers_list.txt | sed ':a;N;s/\n/\\n/g;ta')"
-  Oldtrackers="$(grep TrackersList= /etc/qBittorrent/config/qBittorrent.conf)"
-  echo "$Newtrackers" >/tmp/Newtrackers.txt
-  if [ -e "/tmp/trackers_list.txt" ]; then
-    if [ "$Newtrackers" == "$Oldtrackers" ]; then
-      echo trackers文件一样,不需要更新。
-    else
-      sed -i '/Bittorrent\\TrackersList=/r /tmp/Newtrackers.txt' /etc/qBittorrent/config/qBittorrent.conf
-      sed -i '1,/^Bittorrent\\TrackersList=.*/{//d;}' /etc/qBittorrent/config/qBittorrent.conf
-      echo 已更新trackers。
-    fi
-    rm /tmp/trackers_list.txt
-    rm /tmp/Newtrackers.txt
-  else
-    echo 更新文件未正确下载，更新未成功，请检查网络。
-  fi
-}
-
 if [ -f "/etc/qBittorrent/config/qBittorrent.conf" ]; then
-  update_tracker
   echo -e "y" | qbittorrent-nox -d --webui-port="$WEBUI_PORT" --profile=/etc/qBittorrent/config
 else
   curl -kLo /etc/qBittorrent/config.tar.gz https://github.com/cgkings/cg_dockerfiles/raw/main/qbittorrent/config.tar.gz
@@ -56,7 +35,7 @@ AutoDeleteAddedTorrentFile=IfAdded
 Accepted=true
 
 [Preferences]
-Bittorrent\TrackersList=
+Bittorrent\TrackersList=$(curl -s https://githubraw.sleele.workers.dev/XIU2/TrackersListCollection/master/best.txt | awk '{if(!NF){next}}1' | sed ':a;N;s/\n/\\n/g;ta')
 Connection\Interface=
 Connection\PortRangeMin=${BT_PORT}
 Connection\UseUPnP=false
@@ -74,7 +53,6 @@ WebUI\Enabled=true
 WebUI\LocalHostAuth=false
 WebUI\Port=${WEBUI_PORT}
 EOF
-  update_tracker
   echo -e "y" | qbittorrent-nox -d --webui-port="$WEBUI_PORT" --profile=/etc/qBittorrent/config
   tail -100f /etc/qBittorrent/data/logs/qbittorrent.log
 fi

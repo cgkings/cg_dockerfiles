@@ -5,10 +5,7 @@ ENV TZ=Asia/Shanghai \
     PUID="$UID" \
     PGID="$GID" \
     WEBUI_PORT=8070 \
-    BT_PORT=34567 \
-    TL=https://githubraw.sleele.workers.dev/XIU2/TrackersListCollection/master/best.txt \
-    SHELL=/bin/bash \
-    QBITTORRENT_HOME=/etc/qBittorrent
+    BT_PORT=34567
 #工作目录
 WORKDIR /root
 #复制安装脚本
