@@ -7,6 +7,7 @@ else
   cd /etc/qBittorrent/ && tar -xvf /etc/qBittorrent/config.tar.gz
   rm -rf /etc/qBittorrent/config.tar.gz
   curl -kLo /etc/qBittorrent/cg_qbt.sh https://github.com/cgkings/script-store/raw/master/script/cg_qbt.sh
+  chmod +x /etc/qBittorrent/cg_qbt.sh
   mkdir -p /etc/qBittorrent/data/GeoIP
   mv -f /root/GeoLite2-Country.mmdb /etc/qBittorrent/data/GeoIP/GeoLite2-Country.mmdb
   cat > /etc/qBittorrent/config/qBittorrent.conf << EOF
