@@ -4,7 +4,6 @@
 #####	update:2021/03/19
 
 echo "${TZ}" > /etc/timezone
-apt-get update
 apt install -y curl jq qbittorrent-nox python3
 rm -rf /var/lib/apt/lists/*
 #创建存储配置目录
