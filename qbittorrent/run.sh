@@ -1,7 +1,7 @@
 #!/bin/bash
 #/etc/qBittorrent/config/qBittorrent.conf
 if [ -f "/etc/qBittorrent/config/qBittorrent.conf" ]; then
-  echo -e "y" | qbittorrent-nox -d --webui-port="$WEBUI_PORT" --profile=/etc/qBittorrent/config
+  echo -e "y" | qbittorrent-nox --webui-port="$WEBUI_PORT" --profile=/etc
 else
   curl -kLo /etc/qBittorrent/config.tar.gz https://github.com/cgkings/cg_dockerfiles/raw/main/qbittorrent/config.tar.gz
   cd /etc/qBittorrent/ && tar -xvf /etc/qBittorrent/config.tar.gz
@@ -55,5 +55,6 @@ WebUI\Enabled=true
 WebUI\LocalHostAuth=false
 WebUI\Port=${WEBUI_PORT}
 EOF
-  echo -e "y" | qbittorrent-nox -d --webui-port="$WEBUI_PORT" --profile=/etc/qBittorrent/config
+  echo -e "y" | qbittorrent-nox --webui-port="$WEBUI_PORT" --profile=/etc
+  tail -100f /etc/qBittorrent/data/logs/qbittorrent.log
 fi
