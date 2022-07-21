@@ -20,6 +20,8 @@ program=/etc/qBittorrent/cg_qbt.sh \"%N\" \"%F\" \"%C\" \"%Z\" \"%I\" \"%L\"
 
 [BitTorrent]
 Session\AddExtensionToIncompleteFiles=true
+Session\AddTrackersEnabled=true
+Session\AdditionalTrackers=$(curl -s https://githubraw.sleele.workers.dev/XIU2/TrackersListCollection/master/best.txt | awk '{if(!NF){next}}1' | sed ':a;N;s/\n/\\n/g;ta')
 Session\AlternativeGlobalDLSpeedLimit=50000
 Session\AlternativeGlobalUPSpeedLimit=0
 Session\DisableAutoTMMByDefault=false
@@ -36,7 +38,6 @@ AutoDeleteAddedTorrentFile=IfAdded
 Accepted=true
 
 [Preferences]
-Bittorrent\TrackersList=$(curl -s https://githubraw.sleele.workers.dev/XIU2/TrackersListCollection/master/best.txt | awk '{if(!NF){next}}1' | sed ':a;N;s/\n/\\n/g;ta')
 Connection\Interface=
 Connection\PortRangeMin=${BT_PORT}
 Connection\UseUPnP=false
@@ -55,5 +56,4 @@ WebUI\LocalHostAuth=false
 WebUI\Port=${WEBUI_PORT}
 EOF
   echo -e "y" | qbittorrent-nox -d --webui-port="$WEBUI_PORT" --profile=/etc/qBittorrent/config
-  tail -100f /etc/qBittorrent/data/logs/qbittorrent.log
 fi

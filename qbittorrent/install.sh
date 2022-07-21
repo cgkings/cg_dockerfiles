@@ -1,14 +1,8 @@
 #!/bin/bash
-#####	Debian安装qbittorrent
-#####	author:xiaoz<xiaoz93@outlook.com>
-#####	update:2021/03/19
-
 echo "${TZ}" > /etc/timezone
-apt install -y curl jq qbittorrent-nox python3
+apt update && apt install -y --no-install-recommends curl qbittorrent-nox python3
 rm -rf /var/lib/apt/lists/*
-#创建存储配置目录
-mkdir -p /etc/qBittorrent
-#创建GeoIP数据库路径
+#创建路径
 mkdir -p /etc/qBittorrent/data/GeoIP
 #创建下载目录
 mkdir -p /downloads
