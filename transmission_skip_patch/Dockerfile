@@ -1,7 +1,7 @@
 FROM ubuntu:20.04
-RUN sed -i 's/archive.ubuntu.com/mirrors.tencent.com/g' /etc/apt/sources.list
-RUN sed -i 's/security.ubuntu.com/mirrors.tencent.com/g' /etc/apt/sources.list
-# 非交互安装,并且删除安装缓存
+# RUN sed -i 's/archive.ubuntu.com/mirrors.tencent.com/g' /etc/apt/sources.list
+# RUN sed -i 's/security.ubuntu.com/mirrors.tencent.com/g' /etc/apt/sources.list
+# # 非交互安装,并且删除安装缓存
 RUN apt-get update; \
     DEBIAN_FRONTEND="noninteractive" apt-get install -y --no-install-recommends expect wget ca-certificates; \
     rm -rf /var/lib/apt/lists/*
