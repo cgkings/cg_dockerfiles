@@ -1,5 +1,5 @@
 #基于哪个镜像制作
-FROM debian:bookworm-slim
+FROM debian:testing-slim
 #设置环境变量
 ENV TZ=Asia/Shanghai \
     PUID="$UID" \
